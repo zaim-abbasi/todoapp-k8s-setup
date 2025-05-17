@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import TodoList from '@/components/TodoList';
 import TodoForm from '@/components/TodoForm';
 import { fetchTodos, createTodo, updateTodo, deleteTodo, Todo } from '@/api/todoApi';
+import { Progress } from '@/components/ui/progress';
+import { CalendarDays, CheckCircle2, ListTodo } from 'lucide-react';
 
 const Index = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -65,40 +67,86 @@ const Index = () => {
     }
   };
 
+  const completedCount = todos.filter(t => t.completed).length;
+  const completionPercentage = todos.length ? (completedCount / todos.length) * 100 : 0;
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-      <Card className="w-full max-w-md mx-auto">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">
-            MERN Todo App
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <TodoForm onAddTodo={handleAddTodo} />
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 p-4">
+      <div className="w-full max-w-md mx-auto">
+        <div className="mb-8 text-center">
+          <div className="inline-flex items-center justify-center p-2 bg-indigo-100 rounded-xl mb-2">
+            <ListTodo className="w-6 h-6 text-indigo-600" />
+          </div>
+          <h1 className="text-3xl font-bold text-gray-800 mb-1">Task Master</h1>
+          <p className="text-gray-500">Manage your tasks efficiently</p>
+        </div>
+
+        <Card className="border-none shadow-lg bg-white rounded-2xl overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-indigo-500 to-purple-500 pb-8 relative">
+            <div className="absolute inset-0 bg-white/10 backdrop-blur-sm z-0"></div>
+            <div className="relative z-10">
+              <div className="flex justify-between items-center mb-4">
+                <div className="flex items-center gap-2">
+                  <CalendarDays className="h-5 w-5 text-white opacity-90" />
+                  <p className="text-white opacity-90 text-sm">
+                    {new Date().toLocaleDateString('en-US', { 
+                      weekday: 'long', 
+                      month: 'short', 
+                      day: 'numeric' 
+                    })}
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex justify-between items-end">
+                <div>
+                  <CardTitle className="text-white text-2xl font-medium">
+                    {completedCount} of {todos.length}
+                  </CardTitle>
+                  <p className="text-white/80 text-sm mt-1">Tasks completed</p>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                    <CheckCircle2 className="h-4 w-4 text-white" />
+                  </div>
+                  <span className="text-white font-medium">{Math.round(completionPercentage)}%</span>
+                </div>
+              </div>
+              
+              <div className="mt-4">
+                <Progress value={completionPercentage} className="h-2 bg-white/20" />
+              </div>
+            </div>
+          </CardHeader>
           
-          {loading ? (
-            <div className="flex justify-center py-8">
-              <div className="animate-pulse text-gray-500">Loading todos...</div>
+          <CardContent className="p-0">
+            <div className="px-6 py-5 border-b border-gray-100">
+              <TodoForm onAddTodo={handleAddTodo} />
             </div>
-          ) : error ? (
-            <div className="bg-red-50 border border-red-200 p-4 rounded-md text-red-600 mb-4">
-              {error}
-            </div>
-          ) : (
-            <TodoList
-              todos={todos}
-              onToggleComplete={handleToggleComplete}
-              onDelete={handleDeleteTodo}
-            />
-          )}
-          
-          {!loading && !error && (
-            <div className="mt-4 text-sm text-gray-500 text-center">
-              {todos.filter(t => t.completed).length} of {todos.length} tasks completed
-            </div>
-          )}
-        </CardContent>
-      </Card>
+            
+            {loading ? (
+              <div className="flex justify-center py-12">
+                <div className="flex flex-col items-center">
+                  <div className="h-8 w-8 rounded-full border-2 border-indigo-500 border-t-transparent animate-spin"></div>
+                  <p className="mt-3 text-gray-500 text-sm">Loading your tasks...</p>
+                </div>
+              </div>
+            ) : error ? (
+              <div className="m-6 bg-red-50 border border-red-100 p-4 rounded-xl text-red-600 text-sm">
+                <p className="font-medium mb-1">Connection Error</p>
+                <p className="opacity-80">{error}</p>
+              </div>
+            ) : (
+              <TodoList
+                todos={todos}
+                onToggleComplete={handleToggleComplete}
+                onDelete={handleDeleteTodo}
+              />
+            )}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
