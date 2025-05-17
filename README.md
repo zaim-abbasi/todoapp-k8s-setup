@@ -1,73 +1,123 @@
-# Welcome to your Lovable project
 
-## Project info
+# MERN Todo App
 
-**URL**: https://lovable.dev/projects/73eb3153-d8f4-46d1-9463-14c47028b2f3
+A simple Todo application built with the MERN stack (MongoDB, Express.js, React, Node.js).
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- Create new todos
+- Toggle todo completion status
+- Delete todos
+- Responsive design
 
-**Use Lovable**
+## Technologies Used
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/73eb3153-d8f4-46d1-9463-14c47028b2f3) and start prompting.
+- **MongoDB**: Database
+- **Express.js**: Backend framework
+- **React**: Frontend library
+- **Node.js**: Runtime environment
+- **Tailwind CSS**: Styling
+- **Docker**: Containerization
 
-Changes made via Lovable will be committed automatically to this repo.
+## Project Structure
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+mern-todo-app/
+├── backend/               # Backend code (Node.js/Express)
+│   ├── models/            # MongoDB models
+│   ├── routes/            # API routes
+│   ├── server.js          # Express server setup
+│   ├── Dockerfile         # Backend Docker configuration
+│   └── package.json       # Backend dependencies
+│
+├── src/                   # Frontend code (React)
+│   ├── api/               # API service functions
+│   ├── components/        # React components
+│   ├── pages/             # Page components
+│   └── ...                # Other React files
+│
+├── Dockerfile             # Frontend Docker configuration
+├── docker-compose.yml     # Docker Compose configuration
+└── README.md              # Project documentation
 ```
 
-**Edit a file directly in GitHub**
+## Running Locally
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Prerequisites
 
-**Use GitHub Codespaces**
+- Node.js (v14+)
+- MongoDB (v4+)
+- npm or yarn
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Option 1: Without Docker
 
-## What technologies are used for this project?
+#### Backend Setup
 
-This project is built with:
+1. Navigate to the backend directory:
+   ```
+   cd backend
+   ```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+2. Install dependencies:
+   ```
+   npm install
+   ```
 
-## How can I deploy this project?
+3. Create a `.env` file (use `.env.example` as template):
+   ```
+   cp .env.example .env
+   ```
 
-Simply open [Lovable](https://lovable.dev/projects/73eb3153-d8f4-46d1-9463-14c47028b2f3) and click on Share -> Publish.
+4. Start the backend server:
+   ```
+   npm run dev
+   ```
 
-## Can I connect a custom domain to my Lovable project?
+Backend will run on http://localhost:5000
 
-Yes, you can!
+#### Frontend Setup
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1. From the project root, install dependencies:
+   ```
+   npm install
+   ```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+2. Start the frontend development server:
+   ```
+   npm run dev
+   ```
+
+Frontend will run on http://localhost:8080
+
+### Option 2: With Docker
+
+1. Make sure Docker and Docker Compose are installed on your machine
+
+2. Build and start the containers:
+   ```
+   docker-compose up -d
+   ```
+
+3. Access the application:
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:5000
+
+## Environment Variables
+
+### Backend
+
+Create a `.env` file in the backend directory with the following variables:
+
+```
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/MernAppSCD
+```
+
+When using Docker Compose, the `MONGODB_URI` is automatically set to point to the MongoDB container.
+
+## API Endpoints
+
+- `GET /todos`: Get all todos
+- `POST /todos`: Create a new todo
+- `PUT /todos/:id`: Update a todo by ID
+- `DELETE /todos/:id`: Delete a todo by ID
