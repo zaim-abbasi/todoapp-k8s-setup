@@ -24,7 +24,7 @@ spec:
         - name: PORT
           value: "5000"
         - name: MONGODB_URI
-          value: "mongodb://mongodb:27017/MernAppSCD"
+          value: "mongodb+srv://root:root@cluster0.bhf1qpj.mongodb.net/mern_app_scd?retryWrites=true&w=majority"
 ---
 apiVersion: v1
 kind: Service
