@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: mern-todo-frontend:latest
-        imagePullPolicy: Never  # For local development
+        image: todo-frontend:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 80
 ---
@@ -31,4 +31,4 @@ spec:
   ports:
   - port: 80
     targetPort: 80
-  type: ClusterIP 
+  type: ClusterIP

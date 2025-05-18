@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: backend
-        image: mern-todo-backend:latest
-        imagePullPolicy: Never  # For local development
+        image: todo-backend:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 5000
         env:

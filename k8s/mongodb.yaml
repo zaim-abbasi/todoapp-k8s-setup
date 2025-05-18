@@ -37,7 +37,7 @@ spec:
   ports:
   - port: 27017
     targetPort: 27017
-  clusterIP: None  # Headless service for MongoDB
+  clusterIP: None  # Headless service (for simplicity and discovery within the cluster)
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
